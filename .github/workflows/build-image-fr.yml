@@ -1,0 +1,32 @@
+name: build-images
+run-name: Building the images of storyteller
+on:
+  push:
+  schedule:
+    - cron: "0 23 * * 0"
+jobs:
+  build-storyteller:
+    runs-on: ubuntu-latest
+    env:
+      language: fr
+    steps:
+      - name: Login to dockerhub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Clone base image repository
+        run: |
+          git clone https://gitlab.com/smoores/storyteller-base.git/
+          git clone https://gitlab.com/smoores/storyteller.git/
+      - name: Build the base images
+        run: |
+          docker build -t loginator/storyteller-base:latest-$language -t loginator/storyteller-base:1-$language -t loginator/storyteller-base:1.${{ github.run_number }}-$language --build-arg WHISPER_MODEL=base --build-arg LANG=$language ./storyteller-base
+          docker image push --all-tags loginator/storyteller-base
+      - name: Building the application
+        run: |
+          sed -i -e 's/base.en/base/g' ./storyteller/web/transcribe.ts
+          sed -i -e "s/language_code: \"${oldLang}\"/language_code: \"${language}\"/g" ./storyteller/web/transcribe.ts
+          sed -i -e "s/FROM registry.gitlab.com\/smoores\/storyteller-base:\${BASE_TAG}/FROM loginator\/storyteller-base:latest-${language}/g" ./storyteller/Dockerfile
+          docker build -t loginator/storyteller:latest-$language -t loginator/storyteller:1-$language -t loginator/storyteller:1.${{ github.run_number }}-$language --build-arg WHISPER_MODEL=base --build-arg LANG=$language ./storyteller
+          docker image push --all-tags loginator/storyteller
