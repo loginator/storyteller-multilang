@@ -1,5 +1,5 @@
 name: Building Storyteller en
-run-name: Building the images of storyteller
+run-name: Building the images of storyteller en
 on:
   push:
   schedule:
