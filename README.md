@@ -4,6 +4,7 @@ This is a small repository to build multilanguage images for storyteller
 I have only tested this for german but I have added builds for all languages mentioned in the whisperx documentation (https://github.com/m-bain/whisperX?tab=readme-ov-file#other-languages).
 ## What is built
 The workflow clones the current main branch for storyteller-base and storyteller and creates images for it.
+The images are build each sunday so that there will hopefully always be an up to date image available.
 ## How to run
 You can use the default storyteller compose file. Just make sure to edit the image name accordingly (the example is configured for german):
 ```yaml
