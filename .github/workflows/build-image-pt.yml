@@ -1,4 +1,4 @@
-name: pt
+name: Building Storyteller pt
 run-name: Building the images of storyteller pt
 on:
   push:
