@@ -35,3 +35,6 @@ secrets:
   secret_key:
     file: ./STORYTELLER_SECRET_KEY.txt
 ```
+## Links
+- [Storyteller Project](https://gitlab.com/smoores/storyteller)
+- [Multilang buids on dockerhub](https://hub.docker.com/repository/docker/loginator/storyteller)
