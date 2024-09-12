@@ -1,3 +1,6 @@
+# Archive Notice
+I'll archive this repo since this is now implemented in the main application.
+
 # Storyteller multilanguage images
 This is a small repository to build multilanguage images for storyteller
 ## Supported languages
